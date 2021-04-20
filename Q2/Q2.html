@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+</head>
+
+<body>
+
+    <p id="demo"></p>
+    <script>
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("get", "country-data.json", false);
+        xhttp.send();
+
+
+        var jsonData = JSON.parse(xhttp.responseText);
+        //Display
+        var data = "";
+
+        data = "<table border = '1'>";
+        data += "<tr>";
+
+        data += "<th>" + "Country" + "</th>";
+        data += "<th>" + " No Of Province " + "</th>";
+        data += "<th>" + " Population in 2011 " + "</th>";
+        data += "<th>" + " Inflaction " + "</th>";
+        data += "<th>" + " No of cities " + "</th>";
+        data += "</tr>";
+        //Extract the data
+        for (i = 0; i < jsonData["country"].length; i++) {
+            data += "<tr>";
+            data += "<td>" + jsonData["country"][i]["name"] + "</td>";
+
+            if (Array.isArray(jsonData["country"][i]["province"])) {
+                data += "<td>" + jsonData["country"][i]["province"].length + "</td>";
+            } else {
+                data += "<td>" + "No Records" + "</td>";
+            }
+
+
+            var last = jsonData["country"][i]["population"].length;
+            data += "<td>" + jsonData["country"][i]["population"][last - 1]["#text"] + "</td>";
+            data += "<td>" + jsonData["country"][i]["inflation"] + "</td>";
+
+
+            if (Array.isArray(jsonData["country"][i]["city"])) {
+                data += "<td>" + jsonData["country"][i]["city"].length + "</td>";
+            } else {
+                data += "<td>" + " No Records" + "</td>";
+            }
+
+
+
+        }
+        data += "</table>";
+
+        document.getElementById("demo").innerHTML = data;
+    </script>
+</body>
+
+</html>
