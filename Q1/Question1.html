@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 1 - Part 1 & 2</title>
+</head>
+<body onload="loadDoc()">
+    <div style='margin: auto; width: 50%'>
+        <h1 style='text-align: center'> Question 1 - part 1 & 2</h1>
+        <p id="displayT"></p>
+    </div>
+    <script>
+        function loadDoc() {
+            var xhttp = new XMLHttpRequest();            
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    myFunction(this);
+                }                            
+            };            
+            xhttp.open("GET", "Country.xml", true);
+            xhttp.send();                       
+                                 
+        }
+        function myFunction(xml) {
+            myObj  = xml.responseXML;           
+        
+            //console.log(myObj.getElementsByTagName("country")); // not working 
+            var mondial = myObj.getElementsByTagName("mondial");
+            var name = myObj.getElementsByTagName("name");
+            var country = myObj.getElementsByTagName("country");
+            var uEmp = myObj.getElementsByTagName("unemployment"); 
+            var tGDP = myObj.getElementsByTagName("gdp_total"); // may not exist in the xml file 
+            var pop = myObj.getElementsByTagName("population"); 
+            console.log(uEmp.nodeValue);     
+            console.log(name);       
+            
+            output1 = "<h1 style='color: white'> Toronto and Oakville Weather XML </h1>"
+            output1 += "<table border='1' style='background-color: white'>"
+              output1 += "<tr style='background-color: gold'>"
+                output1 += "<th>" + "Country Name" + "</th>"
+                output1 += "<th>" + "Capital" + "</th>"
+                output1 += "<th>" + "Unemployment" + "</th>"
+                output1 += "<th>" + "Total GDP" + "</th>"  
+                output1 += "<th>" + "Largest Ethnic Group" + "</th>"               
+              output1 += "</tr>"                                   
+              for(let i = 0; i < country.length; i++) 
+                {
+                    //for (let j = 0; j < country.length; j++) {                        
+                        output1 += "<tr style='background-color: white'>"
+                        output1 += "<td>" + country[i].firstElementChild.innerHTML + "</td>";                                                
+                        output1 += "<td>" + country[i].getAttribute("capital") + "</td>"                          
+                        // how do i test if it exist - no help at all 
+                        if (country[i].getElementsByTagName("unemployment").length == 0) 
+                        {
+                            output1 += "<td>" + "N/A" + "</td>" ;
+                        }
+                        else 
+                        { 
+                            output1 += "<td>" + country[i].getElementsByTagName("unemployment")[0].innerHTML + "%" + "</td>";
+                            //console.log(Country[i].getElementsByTagName("unemployment")[0].innerHTML);
+                        }                        
+                        if (country[i].getElementsByTagName("gdp_total").length == 0) 
+                        {
+                            output1 += "<td>" + "N/A" + "</td>" ;
+                        }
+                        else 
+                        { 
+                            output1 += "<td>" + country[i].getElementsByTagName("gdp_total")[0].innerHTML + "</td>";
+                            //console.log(Country[i].getElementsByTagName("unemployment")[0].innerHTML);
+                        }                            
+                        if (country[i].getElementsByTagName("ethnicgroup").length == 0) 
+                        {
+                            output1 += "<td>" + "N/A" + "</td>" ;
+                        }
+                        else 
+                        { 
+                            output1 += "<td>" + country[i].getElementsByTagName("ethnicgroup")[0].innerHTML  
+                                + " - " + country[i].getElementsByTagName("ethnicgroup")[0].getAttribute("percentage")
+                                + "%" + "</td>";
+                            
+                        }                                  
+                        output1 += "</tr>" 
+                    //}
+                }                
+               output1 += "</table>" 
+            document.getElementById("displayT").innerHTML += output1;  
+            }
+    </script>
+</body>
+</html>
