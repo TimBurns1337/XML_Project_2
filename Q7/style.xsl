@@ -4,10 +4,22 @@
       <html>
          <head>
             <title>Title of the page</title>
+            <style>
+            div {
+                        width: 50%;
+                        margin: 0 auto;    
+                        text-align: center;    
+                     }
+                     body{    
+                        background-image: url("https://images6.alphacoders.com/400/thumb-1920-400645.jpg");  
+                        background-size: contain;
+                     }
+            </style>
          </head>
          <body>
-            <h1>List of Country info</h1>
-            <table border = "1">             
+         <div>
+            <h1 style='color: white'>List of Country info</h1>
+            <table border = "1" style='background-color: white'>             
             <tr BGCOLOR= "gold">            
                <th>
                   Province Name
@@ -59,6 +71,7 @@
             </tr>            
             </xsl:for-each>     
             </table>
+            </div>
          </body>
       </html>
    </xsl:template>
