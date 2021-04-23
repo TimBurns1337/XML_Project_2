@@ -19,7 +19,7 @@
          <body>
          <div>
             <h1 style='color: white'>List of Country info</h1>
-            <table border = "1" style='background-color: white'>             
+            <table border = "1" style='background-color: white ; width: 100%'>             
             <tr BGCOLOR= "gold">            
                <th>
                   Province Name
