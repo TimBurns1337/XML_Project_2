@@ -9,6 +9,9 @@
 </head>
 <body onload="loadDoc()">
     <div id="wrapper">
+        <form>
+            Enter Country:<br> <input type="text" name="country">            
+         </form>
     <p id="displayT"></p>
     </div>    
     <script>
@@ -32,12 +35,46 @@
             //console.log(xhttp2);
             var jsonDoc = json1.responseText;
             var myObj = JSON.parse(jsonDoc); 
-            console.log(myObj);
+            console.log(myObj.flag);
 
             // this if for rest coutries api 
             var jsonDoc2 = json2.responseText; 
             var myObj2 = JSON.parse(jsonDoc2); 
             console.log(myObj2);
+
+            var values = [];
+            var keys = Object.keys(myObj2.rates);
+            var j = 0;
+            values = keys;
+            console.log(values);
+
+            output1 = "<h1 style='color: white'> Country Info </h1>"
+            output1 += "<table border='1' style='background-color: white; width: 100%'>"
+            output1 += "<tr style='background-color: gold'>"
+            output1 += "<th>" + "Country Name" + "</th>"
+            output1 += "<th>" + "Region" + "</th>"        
+            output1 += "<th>" + "Flag" + "</th>"  
+            output1 += "<th>" + "Native Name" + "</th>"        
+            output1 += "<th>" + "Area" + "</th>"    
+            output1 += "<th>" + "CCY VS EUR" + "</th>"    
+            output1 += "<th>" + "Border Counties" + "</th>"                 
+            output1 += "</tr>"      
+        
+            for(i in myObj2.rates) 
+            {
+                //var keys = Object.keys(myObj.rates);
+                //console.log(keys[0]);
+                output1 += "<tr style='background-color: white'>"                
+                output1 += "<td>" + myObj2.rates.EUR + "</td>"
+                output1 += "<td>" + " " + myObj2.rates[i] + "</td>"
+                output1 += "<td>" + values[j] + "</td>" 
+                j++;
+            }   
+                output1 += "</tr>"                    
+                    
+                             
+               output1 += "</table>" 
+            document.getElementById("displayT").innerHTML += output1;  
 
         }
     </script>

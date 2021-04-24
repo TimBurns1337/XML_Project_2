@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--Prepared By Devansh-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 4</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <p id="demo"></p>
+    <script>
+        var region = prompt("Please enter your region");
+        region = region.substring(0, 1).toUpperCase() + region.slice(1)
+
+        $(document).ready(function() {
+            console.log(region)
+            $.ajax({
+                url: "country-data.json",
+                success: function(data) {
+                    var output = "<table border = '1'>"
+
+                    output += "<tr'><th>Region</th><th>Capital</th><th>Currency Code</th><th>Language Native Name</th></tr>"
+                    $.each(data, function(index, res) {
+                        if (region == res.name) {
+
+                            var currency = ""
+                            var capital = ""
+                            capital += res.capital ? res.capital : '--'
+                            output += "<tr>";
+                            output += "<td>" + res.region + "</td>";
+                            output += "<td>" + capital + "</td>";
+                            $.each(res.currencies, function(idx, value) {
+                                console.log(idx, value)
+                                if (idx == 0) {
+                                    currency += value.code
+                                } else {
+                                    currency += ", " + value.code
+                                }
+                            })
+                            output += "<td>" + currency + "</td>";
+                            output += "<td>" + res.nativeName + "</td>";
+                            output += "</tr>"
+                        }
+                    });
+                    output += "</table>";
+                    document.getElementById("demo").innerHTML = output;
+                },
+                error: function() {
+                    alert('Error!')
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

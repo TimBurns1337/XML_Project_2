@@ -1,66 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+<!--Prepared By Devansh-->
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Question 2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".btn").click(function() {
+                $.getJSON("Country.json", function(json) {
+                    console.log(json);
+                    var countryname = $("#country").val();
+                    var table = "";
+                    var pcount = 0,
+                        ccount = 0;
+                    table += '<table border="2"><tr><th>Province Name</th><th>Local Name</th><th>Population(2011)</th><th>No of cities in the province</th></tr>';
+                    for (var i = 0; i < json.country.length; i++) {
+                        if (json.country[i].name == countryname) {
+                            if (json.country[i].province != null) {
+                                for (var j = 0; j < json.country[i].province.length; j++) {
+                                    table += "<tr>";
+                                    table += "<td>" + json.country[i].province[j].name + "</td>";
+                                    if (json.country[i].province[j].localname != null)
+                                        table += "<td>" + json.country[i].province[j].localname + "</td>";
+                                    else {
+                                        table += "<td>No Local Name</td>";
+                                    }
+                                    for (var k = 0; k < json.country[i].province[j].population.length; k++) {
+                                        if (json.country[i].province[j].population[k]["@year"] == "2011") {
+                                            table += "<td>" + json.country[i].province[j].population[k]["#text"] + "</td>";
+                                        } else {
+                                            continue;
+                                        }
+                                    }
+                                    for (var k = 0; k < json.country[i].province[j].city.length; k++) {
+                                        pcount++;
+                                    }
+                                    table += "<td>" + pcount + " Cities </td>";
+                                    table += "</tr>";
+                                }
+                            } else {
+                                table += "<tr>";
+                                table += "<td>No Province in this Country</td>";
+                                table += "<td>No Local Name</td>";
+                                for (var j = 0; j < json.country[i].population.length; j++) {
+                                    if (json.country[i].population[j]["@year"] == "2011") {
+                                        table += "<td>" + json.country[i].population[j]["#text"] + "</td>";
+                                    } else
+                                        continue;
+                                }
+                                for (var k = 0; k < json.country[i].city.length; k++) {
+                                    ccount++;
+                                }
+                                table += "<td>" + ccount + " Cities {In country}</td>";
+                                table += "</tr>";
+                            }
 
-
+                        } else {
+                            continue;
+                        }
+                    }
+                    table += "</table>";
+                    $("#demo").html(table);
+                }).fail(function() {
+                    alert("Error");
+                });
+            });
+        });
+    </script>
 </head>
 
 <body>
-
+    <h2>Enter Country:</h2>
+    <input type="text" id="country" />
+    <button type="submit" class="btn">Find</button>
+    <br><br>
     <p id="demo"></p>
-    <script>
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("get", "country-data.json", false);
-        xhttp.send();
-
-
-        var jsonData = JSON.parse(xhttp.responseText);
-        //Display
-        var data = "";
-
-        data = "<table border = '1'>";
-        data += "<tr>";
-
-        data += "<th>" + "Country" + "</th>";
-        data += "<th>" + " No Of Province " + "</th>";
-        data += "<th>" + " Population in 2011 " + "</th>";
-        data += "<th>" + " Inflaction " + "</th>";
-        data += "<th>" + " No of cities " + "</th>";
-        data += "</tr>";
-        //Extract the data
-        for (i = 0; i < jsonData["country"].length; i++) {
-            data += "<tr>";
-            data += "<td>" + jsonData["country"][i]["name"] + "</td>";
-
-            if (Array.isArray(jsonData["country"][i]["province"])) {
-                data += "<td>" + jsonData["country"][i]["province"].length + "</td>";
-            } else {
-                data += "<td>" + "No Records" + "</td>";
-            }
-
-
-            var last = jsonData["country"][i]["population"].length;
-            data += "<td>" + jsonData["country"][i]["population"][last - 1]["#text"] + "</td>";
-            data += "<td>" + jsonData["country"][i]["inflation"] + "</td>";
-
-
-            if (Array.isArray(jsonData["country"][i]["city"])) {
-                data += "<td>" + jsonData["country"][i]["city"].length + "</td>";
-            } else {
-                data += "<td>" + " No Records" + "</td>";
-            }
-
-
-
-        }
-        data += "</table>";
-
-        document.getElementById("demo").innerHTML = data;
-    </script>
 </body>
 
 </html>
