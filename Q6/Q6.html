@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part2 - Question 6 </title>
+    <style>
+        table th {
+            background-color: mediumaquamarine;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+
+
+            $("#find").click(function() {
+
+
+                let countryName = $("#countryName").val();
+                let serial = 1;
+
+
+                let output = "";
+                output += "<table border='2'>";
+                output += "<tr>";
+                output += "<th>Country Name</th>";
+                output += "<th>Region</th>";
+                output += "<th>Flag</th>";
+                output += "<th>Native Name</th>";
+                output += "<th>Area (square km.)</th>";
+                output += "<th> Currency Exchange rate for 1 Euro (€)</th>";
+                output += "<th>Neighbour countries</th>";
+                output += "</tr>";
+
+                $.ajax({
+                    url: "https://restcountries.eu/rest/v2/all",
+
+                    success: function(data) {
+                        var jsonData = data;
+
+                        for (i = 0; i < jsonData.length; i++) {
+
+                            if (jsonData[i].name == countryName) {
+                                output += "<tr>";
+                                output += "<td>" + jsonData[i].name + "</td>";
+                                if (jsonData[i].region == "") {
+                                    output += "<td>" + "-NA-" + "</td>";
+                                } else {
+                                    output += "<td>" + jsonData[i].region + "</td>";
+                                }
+                                var erroMessage = countryName + " flag not available";
+                                output += "<td>";
+                                output += "<img src='" + jsonData[i].flag + "' alt='" + errorMessage + "' width='50' height='50'>";
+                                output += "</td>"
+                                output += "<td>" + jsonData[i].nativeName + "</td>"
+                                output += "<td>" + jsonData[i].area + "</td>"
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.open("get", "http://data.fixer.io/api/latest?access_key=37878e6a3d30e2da84b43ad1dd7500bf", false);
+                                xhttp.send();
+                                var currencyRates = JSON.parse(xhttp.responseText);
+                                console.log(currencyRates)
+                                $.each(currencyRates.rates, function(currency, rate) {
+                                    if (jsonData[i].currencies[0].code == currency) {
+                                        output += "<td>" + rate + " " + jsonData[i].currencies[0].symbol + "</td>"
+                                    }
+
+
+                                });
+                                if (Array.isArray(jsonData[i].borders)) {
+                                    if (jsonData[i].borders.length !== 0) {
+                                        output += "<td>";
+                                        for (j = 0; j < jsonData[i].borders.length; j++) {
+                                            let currBorder = jsonData[i].borders[j];
+                                            for (k = 0; k < jsonData.length; k++) {
+                                                if (jsonData[k].alpha3Code == currBorder) {
+                                                    output += jsonData[k].name + "<br>";
+                                                }
+                                            }
+
+                                        }
+                                        output += "</td>";
+                                    } else {
+                                        output += "<td>" + "-NA-" + "</td>";
+                                    }
+                                }
+
+                                output += "</tr>";
+                            }
+
+                        }
+                        output += "</table>"
+                        document.getElementById("demo").innerHTML = output;
+                    },
+                    error: function() {
+                        alert('Error! Data not found')
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <form>
+        Country Name : <input type="text" id="countryName">
+        <input type="button" value="Find Country" id="find">
+    </form>
+
+    <p id="demo"></p>
+</body>
+
+</html>
