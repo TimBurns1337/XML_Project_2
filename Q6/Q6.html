@@ -23,6 +23,8 @@
                 let countryName = $("#countryName").val();
                 let serial = 1;
 
+                //console.log(countryName);
+
 
                 let output = "";
                 output += "<table border='2'>";
@@ -36,15 +38,24 @@
                 output += "<th>Neighbour countries</th>";
                 output += "</tr>";
 
+                // works till here no issues 
                 $.ajax({
                     url: "https://restcountries.eu/rest/v2/all",
 
                     success: function(data) {
                         var jsonData = data;
+                        // works till here 
+                        //console.log(jsonData);
 
                         for (i = 0; i < jsonData.length; i++) {
+                            //console.log(jsonData.length);
+                            // works till here 
+                            console.log(jsonData[i].name);
 
-                            if (jsonData[i].name == countryName) {
+                            if (jsonData[0].name == countryName) {
+                                // not working 
+                                
+                                //console.log(jsonData[0].name);
                                 output += "<tr>";
                                 output += "<td>" + jsonData[i].name + "</td>";
                                 if (jsonData[i].region == "") {
@@ -54,10 +65,18 @@
                                 }
                                 var erroMessage = countryName + " flag not available";
                                 output += "<td>";
-                                output += "<img src='" + jsonData[i].flag + "' alt='" + errorMessage + "' width='50' height='50'>";
+                                //output += "<img src='" + jsonData[i].flag + "' alt='" + errorMessage + "' width='50' height='50'>";
+
+                                //test 
+                                var img = document.createElement('img');        
+                                img.src = jsonData[i].flag;   // The image source from JSON array.
+                                output += img;
+
+
+                                // test
                                 output += "</td>"
                                 output += "<td>" + jsonData[i].nativeName + "</td>"
-                                output += "<td>" + jsonData[i].area + "</td>"
+                                output += "<td>" + jsonData[i].area + "</td>"                                
                                 var xhttp = new XMLHttpRequest();
                                 xhttp.open("get", "http://data.fixer.io/api/latest?access_key=37878e6a3d30e2da84b43ad1dd7500bf", false);
                                 xhttp.send();
@@ -70,6 +89,7 @@
 
 
                                 });
+                                
                                 if (Array.isArray(jsonData[i].borders)) {
                                     if (jsonData[i].borders.length !== 0) {
                                         output += "<td>";
