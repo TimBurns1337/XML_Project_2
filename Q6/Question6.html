@@ -13,50 +13,32 @@
     </div>    
     <script>
         function loadDoc() {
-            var xhttp = new XMLHttpRequest();            
+            var xhttp = new XMLHttpRequest(); 
+            var xhttp2 = new XMLHttpRequest();           
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    myFunction(this);
+                    myFunction(this,xhttp2);
                 }                            
             };
             
-            xhttp.open("GET", "http://data.fixer.io/api/latest?access_key=edfb8c8b695b3b92f2ed3e3049ba178b", true);
-            xhttp.send();        
+            xhttp2.open("GET", "http://data.fixer.io/api/latest?access_key=edfb8c8b695b3b92f2ed3e3049ba178b", true);
+            xhttp2.send();     
+            
+            xhttp.open("GET", "http://restcountries.eu/rest/v2/all", true);
+            xhttp.send(); 
         }
-        function myFunction(json1) {
+        function myFunction(json1,json2) {
+            // fixer api 
+            //console.log(xhttp2);
             var jsonDoc = json1.responseText;
             var myObj = JSON.parse(jsonDoc); 
-            var values = [];
-            var keys = Object.keys(myObj.rates);
-            var j = 0;
-            values = keys;
-            console.log(values);
-            //console.log(myObj.rates.EUR);
-            
-            output1 = "<h1 style='color: white'> Currecny Exchnage vs EUR </h1>"
-            output1 += "<table border='1' style='background-color: white; width: 100%'>"
-            output1 += "<tr style='background-color: gold'>"
-            output1 += "<th>" + "EUR" + "</th>"
-            output1 += "<th>" + "Country Currency Exchnage" + "</th>"
-            output1 += "<th>" + "Country" + "</th>"                                               
-            output1 += "</tr>"      
-        
-            for(i in myObj.rates) 
-            {
-                //var keys = Object.keys(myObj.rates);
-                //console.log(keys[0]);
-                output1 += "<tr style='background-color: white'>"                
-                output1 += "<td>" + myObj.rates.EUR + "</td>"
-                output1 += "<td>" + " " + myObj.rates[i] + "</td>"
-                output1 += "<td>" + values[j] + "</td>" 
-                j++;
-            }   
-                output1 += "</tr>"                    
-                    
-                             
-               output1 += "</table>" 
-            document.getElementById("displayT").innerHTML += output1;  
-             
+            console.log(myObj);
+
+            // this if for rest coutries api 
+            var jsonDoc2 = json2.responseText; 
+            var myObj2 = JSON.parse(jsonDoc2); 
+            console.log(myObj2);
+
         }
     </script>
 </body>
