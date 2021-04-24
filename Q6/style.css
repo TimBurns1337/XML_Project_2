@@ -1,0 +1,10 @@
+#wrapper {
+    width: 50%;
+    margin: 0 auto;    
+    text-align: center;    
+}
+body{    
+    background-image: url("https://images6.alphacoders.com/400/thumb-1920-400645.jpg");    
+    
+    background-size: contain;
+}
