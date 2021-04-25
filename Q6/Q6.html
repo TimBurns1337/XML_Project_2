@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Question 6 </title>
     <style>
         table th {
-            background-color: lightgreen;
+            background-color: gold;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -27,7 +28,7 @@
 
 
                 let output = "";
-                output += "<table border='1'>";
+                output += "<table border='1' style='background-color: white; width: 100%'>";
                 output += "<tr>";
                 output += "<th>Country Name</th>";
                 output += "<th>Region</th>";
@@ -116,12 +117,14 @@
 </head>
 
 <body>
+    <div id="wrapper">
     <form>
         Country Name : <input type="text" id="countryName">
         <input type="button" value="Find Country" id="find">
     </form>
 
     <p id="demo"></p>
+</div>
 </body>
 
 </html>

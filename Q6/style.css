@@ -8,3 +8,6 @@ body{
     
     background-size: contain;
 }
+form {
+    color: white;
+}
