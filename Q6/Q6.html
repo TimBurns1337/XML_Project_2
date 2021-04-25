@@ -50,8 +50,6 @@
                         for (i = 0; i < jsonData.length; i++) {
                             //console.log(jsonData.length);
 
-                            console.log(jsonData[i].name);
-
 
                             if (jsonData[i].name == countryName) {
 
@@ -74,10 +72,12 @@
                                 xhttp.open("get", "http://data.fixer.io/api/latest?access_key=1354cdd291e9462e88b05483d66de360&format=1", false);
                                 xhttp.send();
                                 var currencyRates = JSON.parse(xhttp.responseText);
-                                console.log(currencyRates)
+                                //console.log(currencyRates)
                                 $.each(currencyRates.rates, function (currency, rate) {
                                     if (jsonData[i].currencies[0].code == currency) {
-                                        output += "<td>" + rate + " " + jsonData[i].currencies[0].symbol + "</td>"
+                                        output += "<td>" + currency + " " + rate + "  VS EUR:" + currencyRates.rates.EUR + "</td>" // issues here 
+                                        console.log(currency)
+                                        console.log(jsonData[i].currencies[0])
                                     }
                                 });
 
