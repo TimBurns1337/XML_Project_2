@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    <link rel="stylesheet" href="style.css">
 <!--Prepared By Devansh-->
 
 <head>
@@ -11,10 +12,12 @@
 </head>
 
 <body>
-
+    <div id="wrapper">
+        <h1 style= 'color: white'>Question 4</h1>
     <p id="demo"></p>
+    </div>
     <script>
-        var region = prompt("Please enter your region");
+        var region = prompt("Please enter the country you want to search for");
         region = region.substring(0, 1).toUpperCase() + region.slice(1)
 
         $(document).ready(function() {
@@ -22,9 +25,9 @@
             $.ajax({
                 url: "country-data.json",
                 success: function(data) {
-                    var output = "<table border = '1'>"
+                    var output = "<table border = '1' style='background-color: white; width: 100%'>"
 
-                    output += "<tr'><th>Region</th><th>Capital</th><th>Currency Code</th><th>Language Native Name</th></tr>"
+                    output += "<tr><th>Region</th><th>Capital</th><th>Currency Code</th><th>Language Native Name</th></tr>"
                     $.each(data, function(index, res) {
                         if (region == res.name) {
 
