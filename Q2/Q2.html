@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <link rel="stylesheet" href="style.css">
 <!--Prepared By Devansh-->
 
 <head>
@@ -14,7 +15,7 @@
                     var table = "";
                     var pcount = 0,
                         ccount = 0;
-                    table += '<table border="2"><tr><th>Province Name</th><th>Local Name</th><th>Population(2011)</th><th>No of cities in the province</th></tr>';
+                    table += '<table border="2", style="background-color: white; width: 100%""><tr style= "background-color: gold"><th>Province Name</th><th>Local Name</th><th>Population(2011)</th><th>No of cities in the province</th></tr>';
                     for (var i = 0; i < json.country.length; i++) {
                         if (json.country[i].name == countryname) {
                             if (json.country[i].province != null) {
@@ -71,11 +72,13 @@
 </head>
 
 <body>
-    <h2>Enter Country:</h2>
+    <div id="wrapper">
+    <h2 style= 'color: white'>Enter Country:</h2>
     <input type="text" id="country" />
     <button type="submit" class="btn">Find</button>
     <br><br>
     <p id="demo"></p>
+</div>
 </body>
 
 </html>
