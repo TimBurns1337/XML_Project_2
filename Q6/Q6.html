@@ -65,17 +65,8 @@
                                     output += "<td>" + jsonData[i].region + "</td>";
                                 }
                                 var erroMessage = countryName + " flag not available";
-                                output += "<td>";
-                                //output += "<img src='" + jsonData[i].flag + "' alt='" + errorMessage + "' width='50' height='50'>";
-
-                                //test 
-                                // image not being displayed - returns object 
-                                var img = document.createElement('img');        
-                                img.src = jsonData[i].flag;   // The image source from JSON array.
-                                output += img
-
-
-                                // test
+                                output += "<td>";                                
+                                output += "<img src = " + jsonData[i].flag + " style='width:100px;height:60px;'>"
                                 output += "</td>"
                                 output += "<td>" + jsonData[i].nativeName + "</td>"
                                 output += "<td>" + jsonData[i].area + "</td>"                                
