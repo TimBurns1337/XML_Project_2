@@ -75,7 +75,7 @@
                                 //console.log(currencyRates)
                                 $.each(currencyRates.rates, function (currency, rate) {
                                     if (jsonData[i].currencies[0].code == currency) {
-                                        output += "<td>" + currency + " " + rate + "  VS EUR:" + currencyRates.rates.EUR + "</td>" // issues here 
+                                        output += "<td>" + currency + ": " + rate + "  VS EUR:" + currencyRates.rates.EUR + "</td>" 
                                         console.log(currency)
                                         console.log(jsonData[i].currencies[0])
                                     }
