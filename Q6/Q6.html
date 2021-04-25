@@ -53,7 +53,7 @@
                             console.log(jsonData[i].name);
 
                             // issues here 
-                            if (jsonData[0].name == countryName) { 
+                            if (jsonData[i].name == countryName) { 
                                 // not working 
                                 
                                 //console.log(jsonData[0].name);
@@ -72,7 +72,7 @@
                                 // image not being displayed - returns object 
                                 var img = document.createElement('img');        
                                 img.src = jsonData[i].flag;   // The image source from JSON array.
-                                output += img;
+                                output += img
 
 
                                 // test
